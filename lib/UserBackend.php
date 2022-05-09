@@ -25,7 +25,6 @@ use OCP\Authentication\IApacheBackend;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\NotPermittedException;
 use OCP\IDBConnection;
-use OCP\ILogger;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IGroupManager;
@@ -34,6 +33,7 @@ use OCP\IUserBackend;
 use OCP\IConfig;
 use OCP\IURLGenerator;
 use OCP\ISession;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\User\Events\UserChangedEvent;
@@ -55,7 +55,7 @@ class UserBackend implements IApacheBackend, UserInterface, IUserBackend {
 	private static $backends = [];
 	/** @var SAMLSettings */
 	private $settings;
-	/** @var ILogger */
+	/** @var LoggerInterface */
 	private $logger;
 	/** @var UserData */
 	private $userData;
@@ -70,7 +70,7 @@ class UserBackend implements IApacheBackend, UserInterface, IUserBackend {
 		IUserManager $userManager,
 		IGroupManager $groupManager,
 		SAMLSettings $settings,
-		ILogger $logger,
+		LoggerInterface $logger,
 		UserData $userData,
 		IEventDispatcher $eventDispatcher
 ) {
